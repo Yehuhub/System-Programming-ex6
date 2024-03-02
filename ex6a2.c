@@ -1,22 +1,41 @@
+/* File : ex6a2.c 
+==============================================
+    Name: Yehu Raccah , ID: 315346726 , login: yehura
+
+    client program, connects to the socket and sends a random number, and a
+    random index. if the number was inserted into the array it will read 1
+    from the socket, if it is not inserted it will read 0  from the socket.
+    if the array is full or 100 numbers failed to insert it will read -1 from
+    the socket and exit.
+
+    it will receive ip and port through arguments vector.
+
+*/
+
+//----------------------include------------------------
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>        // for read/write/close
-#include <sys/types.h>     /* standard system types */
-#include <netinet/in.h>    /* Internet address structures */
-#include <sys/socket.h>    /* socket interface functions */
-#include <netdb.h>         /* host to IP resolution */
+#include <unistd.h>        
+#include <sys/types.h>     
+#include <netinet/in.h>    
+#include <sys/socket.h>    
+#include <netdb.h>         
 
-const int BUFLEN = 10;    /* maximum response size */
+//----------------------const------------------------
+const int BUFLEN = 10;    
 const int ARR_SIZE = 100;
 
+//----------------------main------------------------
 int main(int argc, char *argv[])
 {
-    int rc; /* system calls return value storage */
+    int rc; 
     int my_socket;
     char rbuf[BUFLEN];
     char wbuf[BUFLEN];
-    int random_number, random_index, answer, count_added = 0, count_sent = 0;
+    int random_number, random_index;
+    int answer; // answer from the server
+    int count_added = 0, count_sent = 0;
     struct addrinfo con_kind,
         *addr_info_res;
         
@@ -26,11 +45,10 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     
+    srand(atoi(argv[1])); //seed using id
 
-
-    srand(atoi(argv[1]));
     memset(&con_kind, 0, sizeof(con_kind));
-    con_kind.ai_family = AF_UNSPEC; // AF_INET, AF_INET6
+    con_kind.ai_family = AF_UNSPEC; 
     con_kind.ai_socktype = SOCK_STREAM;
 
     if ((rc = getaddrinfo(argv[2], argv[3],
@@ -41,18 +59,15 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    my_socket = socket(addr_info_res->ai_family,   // PF_INET
-                       addr_info_res->ai_socktype, // SOCK_STREAM
+    my_socket = socket(addr_info_res->ai_family,   
+                       addr_info_res->ai_socktype, 
                        addr_info_res->ai_protocol);
-    // 0 = u decide which protocal to use
+
     if (my_socket < 0)
     {
         perror("socket: allocation failed");
         exit(EXIT_FAILURE);
     }
-
-
-    sleep(rand() % 10);
 
     // connect to server
     rc = connect(my_socket,
@@ -62,18 +77,11 @@ int main(int argc, char *argv[])
         perror("connect failed:");
         exit(EXIT_FAILURE);
     }
-    else{
-        printf("connection success\n"); // need to remove
-    }
+    
 
-    random_number = rand() % 200;
-    printf("%d\n", random_number);
-    sprintf(wbuf, "%d", random_number);
     //initial read before entering the loop
-    rc = write(my_socket, wbuf, sizeof(wbuf));
     rc = read(my_socket, rbuf, sizeof(rbuf));
     sscanf(rbuf, "%d", &answer);
-    printf("got %d from server\n", answer);
 
 
     while(1){
@@ -82,6 +90,7 @@ int main(int argc, char *argv[])
         random_number = rand() % 200;
         random_index = rand() % 100;
         snprintf(wbuf, sizeof(wbuf),"%d %d", random_number, random_index);
+
         rc = write(my_socket, wbuf, sizeof(wbuf));
         count_sent++;
 
