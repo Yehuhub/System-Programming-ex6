@@ -23,13 +23,17 @@
     it will receive ip and port through arguments vector.
 ----------------------------------------------------------------
   
-  Compile: gcc ex6a1.c -Wall -o ex6a1
-           gcc ex6a2.c -Wall -o ex6a2
-  Run: ./ex6a1 <DESIRED_PORT>
-       ./ex6a2 <ID> localhost <SERVER_PORT>
-       ./ex6a2 <ID> localhost <SERVER_PORT>
-       ./ex6a2 <ID> localhost <SERVER_PORT>
-  input: ex6a1 - SERVER_PORT
-         ex6a2 - integer as id in argv, localhost, and server port
-  output: server - biggest and smallest values in the array
-          client - how many random numbers sent, and how many inserted to the array
+  ### Compile: 
+  gcc ex6a1.c -Wall -o ex6a1  
+  gcc ex6a2.c -Wall -o ex6a2
+  ### Run: 
+  ./ex6a1 <DESIRED_PORT>
+  ./ex6a2 <ID> localhost <SERVER_PORT>
+  ./ex6a2 <ID> localhost <SERVER_PORT>
+  ./ex6a2 <ID> localhost <SERVER_PORT>
+  ### input: 
+  ex6a1 - SERVER_PORT
+  ex6a2 - integer as id in argv, localhost, and server port
+  ### output: 
+  server - biggest and smallest values in the array
+  client - how many random numbers sent, and how many inserted to the array
