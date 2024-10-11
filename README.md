@@ -1,12 +1,8 @@
 # System Programming - ex6
 ## An exercise done to learn the use of the socket ipc tool
 
-Program: ex6a
-==============================================
-    Name: Yehu Raccah
 
-----------------------------------------------------
- File : ex6a1.c 
+## File : ex6a1.c 
     server program, through socket receives random numbers and indices, 
     will try to insert them into an integer array.
     if it was inserted it will return 1 to the sender, if not will return
@@ -14,10 +10,10 @@ Program: ex6a
     if array is full or 100 failed numbers received it will send -1 to the clients
     to finish.
 
-    it will connect to local host using a port received through argv
+    it will connect to local host using a port received through argv  
     server needs 3 clients.
-----------------------------------------------------------------
- File : ex6a2.c 
+
+ ## File : ex6a2.c 
     client program, connects to the socket and sends a random number, and a
     random index. if the number was inserted into the array it will read 1
     from the socket, if it is not inserted it will read 0  from the socket.
