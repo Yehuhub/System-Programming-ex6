@@ -1,6 +1,9 @@
+# System Programming - ex6
+## An exercise done to learn the use of the socket ipc tool
+
 Program: ex6a
 ==============================================
-    Name: Yehu Raccah , ID: 315346726 , login: yehura
+    Name: Yehu Raccah
 
 ----------------------------------------------------
  File : ex6a1.c 
